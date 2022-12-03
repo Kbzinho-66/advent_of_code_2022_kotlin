@@ -50,13 +50,13 @@ fun main() {
     }
 
     // Testar os casos básicos
-    val testInput = readInput("Day02_test")
+    val testInput = readInput("../inputs/Day02_test")
     val test1 = part1(testInput)
     val test2 = part2(testInput)
     if (test1 != 15) throw IllegalStateException("$test1 != 15")
     if (test2 != 12) throw IllegalStateException("$test2 != 12")
 
-    val input = readInput("Day02")
+    val input = readInput("../inputs/Day02")
     println("Parte 1 = ${part1(input)}")
     println("Parte 2 = ${part2(input)}")
 }

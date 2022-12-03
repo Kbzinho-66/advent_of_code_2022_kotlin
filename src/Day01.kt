@@ -29,14 +29,14 @@ fun main() {
     }
 
     // Testar os casos básicos
-    val testInput = readInput("Day01_test")
+    val testInput = readInput("../inputs/Day01_test")
     val testCalories = getCalories(testInput)
     val test1 = part1(testCalories)
     val test2 = part2(testCalories)
     if (test1 != 24000) throw IllegalStateException("$test1 != 24000")
     if (test2 != 45000) throw IllegalStateException("$test2 != 45000")
 
-    val input = readInput("Day01")
+    val input = readInput("../inputs/Day01")
     val caloriesPerElf = getCalories(input)
     println("Parte 1 = ${part1(caloriesPerElf)}")
     println("Parte 2 = ${part2(caloriesPerElf)}")
