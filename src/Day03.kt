@@ -11,31 +11,24 @@ fun main() {
     }
 
     fun part1(input: List<String>): Int {
-        var total = 0
-        for (items in input) {
-            val (comp1, comp2) = items
-            for (char in comp1) {
-                if (char in comp2) total += priority(char)
-            }
-        }
-        return total
+        return input.map { (comp1, comp2) ->
+            comp1 intersect comp2
+        }.flatten().sumOf { priority(it) }
     }
 
     fun part2(input: List<String>): Int {
-        var total = 0
-
-        val iter: ListIterator<String> = input.listIterator()
-        while (iter.hasNext()) {
-            val set1 = iter.next().toSet()
-            val set2 = iter.next().toSet()
-            val set3 = iter.next().toSet()
-
-            for (item in set1) {
-                if (item in set2 && item in set3) total += priority(item)
-            }
-        }
-
-        return total
+        return input.chunked(3)
+            .map { grupo ->
+                // O zipWithNext vai comparar o primeiro com o segundo e o segundo com o terceiro
+                grupo.zipWithNext()
+                    .map { (first, second) ->
+                        // Daqui vão sair os elementos comuns aos dois
+                        first.toSet() intersect second.toSet()
+                    }
+            }.flatMap { repetidos ->
+                // Como foi usado um grupo de 3, vai ter n-1 conjuntos de elementos comuns
+                repetidos[0] intersect repetidos[1]
+            }.sumOf { priority(it) }
     }
 
     // Testar os casos básicos
