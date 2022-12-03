@@ -1,5 +1,3 @@
-import java.lang.IllegalStateException
-
 fun main() {
     fun part1(calories: List<Int>): Int {
         return calories[0]
@@ -31,10 +29,8 @@ fun main() {
     // Testar os casos básicos
     val testInput = readInput("../inputs/Day01_test")
     val testCalories = getCalories(testInput)
-    val test1 = part1(testCalories)
-    val test2 = part2(testCalories)
-    if (test1 != 24000) throw IllegalStateException("$test1 != 24000")
-    if (test2 != 45000) throw IllegalStateException("$test2 != 45000")
+    sanityCheck(part1(testCalories), 24000)
+    sanityCheck(part2(testCalories), 45000)
 
     val input = readInput("../inputs/Day01")
     val caloriesPerElf = getCalories(input)

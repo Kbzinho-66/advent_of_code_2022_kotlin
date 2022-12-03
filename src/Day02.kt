@@ -1,5 +1,3 @@
-import java.lang.IllegalStateException
-
 const val WIN = 6
 const val DRAW = 3
 const val LOSS = 0
@@ -51,10 +49,8 @@ fun main() {
 
     // Testar os casos básicos
     val testInput = readInput("../inputs/Day02_test")
-    val test1 = part1(testInput)
-    val test2 = part2(testInput)
-    if (test1 != 15) throw IllegalStateException("$test1 != 15")
-    if (test2 != 12) throw IllegalStateException("$test2 != 12")
+    sanityCheck(part1(testInput), 15)
+    sanityCheck(part2(testInput), 12)
 
     val input = readInput("../inputs/Day02")
     println("Parte 1 = ${part1(input)}")

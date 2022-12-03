@@ -1,6 +1,7 @@
 import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.lang.IllegalStateException
 
 /**
  * Reads lines from the given input txt file.
@@ -14,3 +15,12 @@ fun readInput(name: String) = File("src", "$name.txt")
 fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray()))
     .toString(16)
     .padStart(32, '0')
+
+/**
+ * Performs sanity check and throws an Exception if it fails
+ */
+fun sanityCheck(got: Int, expected: Int) {
+    if (got != expected) {
+        throw IllegalStateException("$got != $expected")
+    }
+}
