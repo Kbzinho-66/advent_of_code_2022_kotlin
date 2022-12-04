@@ -1,9 +1,15 @@
 fun main() {
 
-    fun getSections(pair: String): Pair<Set<Int>, Set<Int>> {
+    infix fun IntRange.fullyOverlaps(other: IntRange): Boolean =
+        first < other.first && last >= other.last
+
+    infix fun IntRange.overlaps(other: IntRange): Boolean =
+        first <= other.last && last >= other.first
+
+    fun getSections(pair: String): Pair<IntRange, IntRange> {
         val (first, second) = pair.split(",").map { sections ->
             val (a, b) = sections.split("-")
-            IntRange(a.toInt(), b.toInt()).toSet()
+            IntRange(a.toInt(), b.toInt())
         }
 
         return Pair(first, second)
@@ -12,15 +18,15 @@ fun main() {
     fun part1(input: List<String>): Int  =
         input.map { pair ->
             getSections(pair)
-        }.count { (first, second) ->
-            (first subtract second).isEmpty() || (second subtract first).isEmpty()
+        }.count { (elf1, elf2) ->
+            ( elf1 fullyOverlaps elf2 || elf2 fullyOverlaps elf1 )
         }
 
     fun part2(input: List<String>): Int =
         input.map { pair ->
             getSections(pair)
-        }.count{ (first, second) ->
-            (first intersect second).isNotEmpty()
+        }.count{ (elf1, elf2) ->
+            elf1 overlaps elf2
         }
 
     // Testar os casos básicos
