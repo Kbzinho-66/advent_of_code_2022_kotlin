@@ -18,16 +18,16 @@ fun main() {
 
     fun part2(input: List<String>): Int {
         return input.chunked(3)
-            .map { grupo ->
+            .map { group ->
                 // O zipWithNext vai comparar o primeiro com o segundo e o segundo com o terceiro
-                grupo.zipWithNext()
+                group.zipWithNext()
                     .map { (first, second) ->
                         // Daqui vão sair os elementos comuns aos dois
                         first.toSet() intersect second.toSet()
                     }
-            }.flatMap { repetidos ->
+            }.flatMap { shared ->
                 // Como foi usado um grupo de 3, vai ter n-1 conjuntos de elementos comuns
-                repetidos[0] intersect repetidos[1]
+                shared[0] intersect shared[1]
             }.sumOf { priority(it) }
     }
 
