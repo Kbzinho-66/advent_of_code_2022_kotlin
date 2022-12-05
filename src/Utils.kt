@@ -19,7 +19,7 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
 /**
  * Performs sanity check and throws an Exception if it fails
  */
-fun sanityCheck(got: Int, expected: Int) {
+fun sanityCheck(got: Any, expected: Any) {
     if (got != expected) {
         throw IllegalStateException("$got != $expected")
     }
