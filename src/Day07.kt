@@ -1,14 +1,15 @@
-fun <K> add(map: MutableMap<K, Int>, key: K, value: Int) {
-    map.putIfAbsent(key, 0)
-    map[key] = map[key]!! + value
-}
+fun addFile(map: MutableMap<String, Int>, cwd: String, size: Int) {
+    // Se ele não existir no mapa ainda, inicializa ele
+    map.putIfAbsent(cwd, 0)
+    // Somar o tamanho passado tanto pros que já existiam quando os que foram inicializados agora
+    map[cwd] = map[cwd]!! + size
 
-fun backpropagate(map: MutableMap<String, Int>, key: String, value: Int) {
-    if (key.isEmpty()) return
+    // Se aqui o cwd estiver vazio, chegou na raiz e não tem mais o que subir
+    if (cwd.isEmpty()) return
 
-    val dir = key.substringBeforeLast('/')
-    map[dir] = map[dir]!! + value
-    backpropagate(map, dir, value)
+    // Se não, subir um nível do endereço e repetir o processo
+    val parent = cwd.substringBeforeLast('/')
+    addFile(map, parent, size)
 }
 
 fun main() {
@@ -31,13 +32,12 @@ fun main() {
                     if (line.startsWith("dir")) {
                         // Se for um diretório, inicializar ele no map
                         val dir = "/" + line.substringAfter(' ')
-                        add(directories, cwd + dir, 0)
+                        addFile(directories, cwd + dir, 0)
 
                     } else {
                         // Se for um arquivo, adicionar o tamanho dele em todas as pastas que o contêm
                         val size = line.substringBefore(' ').toInt()
-                        add(directories, cwd, size)
-                        backpropagate(directories, cwd, size)
+                        addFile(directories, cwd, size)
                     }
                 }
             }
