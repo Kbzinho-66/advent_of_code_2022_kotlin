@@ -43,17 +43,12 @@ class Rope(size: Int) {
     private val knots = Array(size) { Position() }
 
     fun move(direction: Direction): Position {
-        // Move head in given direction
         knots[0] = knots[0].move(direction)
-        // And every knot follows the one in front of it
-        for (i in 1 until knots.size) {
-            val newPos = knots[i].follow(knots[i-1])
-            if (knots[i] != newPos) {
-                knots[i] = newPos
-            } else {
-                // If a knot stayed in place, so will every knot following it
-                break
-            }
+        // Depois de mover a cabeça, todos os outros nós devem seguir o movimento do nó à frente
+        for ( (head, tail) in knots.indices.zipWithNext()) {
+            val newPos = knots[tail].follow(knots[head])
+            if (knots[tail] == newPos) break
+            knots[tail] = newPos
         }
 
         return knots.last()
@@ -61,23 +56,8 @@ class Rope(size: Int) {
 }
 
 fun main() {
-
-    fun part1(input: List<String>): Int {
-        val rope = Rope(2)
-        val uniquePoints = mutableSetOf<Position>()
-
-        for ((direction, times) in input) {
-            repeat(times) {
-                val tail = rope.move(direction)
-                uniquePoints.add(tail)
-            }
-        }
-
-        return uniquePoints.size
-    }
-
-    fun part2(input: List<String>): Int {
-        val rope = Rope(10)
+    fun executeMoves(input: List<String>, sizeOfRope: Int): Int {
+        val rope = Rope(sizeOfRope)
         val uniquePoints = mutableSetOf<Position>()
 
         for ((direction, times) in input) {
@@ -92,13 +72,13 @@ fun main() {
 
     // Testar os casos básicos
     val testInput1 = readInput("../inputs/Day09_test")
-    sanityCheck(part1(testInput1), 13)
-    sanityCheck(part2(testInput1), 1)
+    sanityCheck(executeMoves(testInput1, 2), 13)
+    sanityCheck(executeMoves(testInput1, 10), 1)
 
     val testInput2 = readInput("../inputs/Day09_test2")
-    sanityCheck(part2(testInput2), 36)
+    sanityCheck(executeMoves(testInput2, 10), 36)
 
     val input = readInput("../inputs/Day09")
-    println("Parte 1 = ${part1(input)}")
-    println("Parte 2 = ${part2(input)}")
+    println("Parte 1 = ${executeMoves(input, 2)}")
+    println("Parte 2 = ${executeMoves(input, 10)}")
 }
