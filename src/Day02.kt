@@ -1,15 +1,15 @@
-const val WIN = 6
-const val DRAW = 3
-const val LOSS = 0
+private const val WIN = 6
+private const val DRAW = 3
+private const val LOSS = 0
 
-const val ROCK = 1
-const val PAPER = 2
-const val SCISSORS = 3
+private const val ROCK = 1
+private const val PAPER = 2
+private const val SCISSORS = 3
 
 fun main() {
-    operator fun String.component1() = this[0]
+    operator fun String.component1() = this[0] - 'A'
     operator fun String.component2() = this[1]
-    operator fun String.component3() = this[2]
+    operator fun String.component3() = this[2] - 'X'
 
     fun part1(games: List<String>): Int {
 
@@ -23,7 +23,7 @@ fun main() {
         var total = 0
         games.forEach { round ->
             val (opponent, _, mine) = round
-            total += points[opponent - 'A'][mine - 'X']
+            total += points[opponent][mine]
         }
 
         return total
@@ -41,7 +41,7 @@ fun main() {
         var total = 0
         games.forEach { round ->
             val (opponent, _ , outcome) = round
-            total += points[opponent - 'A'][(outcome - 'X')]
+            total += points[opponent][outcome]
         }
 
         return total

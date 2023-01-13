@@ -9,7 +9,7 @@ fun main() {
 
     fun getCalories(input: List<String>): List<Int> {
         var carried = 0
-        val caloriesPerElf: MutableList<Int> = mutableListOf<Int>()
+        val caloriesPerElf: MutableList<Int> = mutableListOf()
 
         val it: ListIterator<String> = input.listIterator()
         while (it.hasNext()) {

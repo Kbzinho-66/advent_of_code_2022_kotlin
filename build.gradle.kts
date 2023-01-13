@@ -1,9 +1,10 @@
 plugins {
-    kotlin("jvm") version "1.7.22"
+    kotlin("jvm") version "1.9.0"
 }
 
 repositories {
     mavenCentral()
+    gradlePluginPortal()
 }
 
 tasks {
@@ -14,6 +15,6 @@ tasks {
     }
 
     wrapper {
-        gradleVersion = "7.6"
+        gradleVersion = "8.2.1"
     }
 }

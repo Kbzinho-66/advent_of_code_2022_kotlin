@@ -1,4 +1,4 @@
-fun addFile(map: MutableMap<String, Int>, cwd: String, size: Int) {
+private fun addFile(map: MutableMap<String, Int>, cwd: String, size: Int) {
     // Se ele não existir no mapa ainda, inicializa ele
     map.putIfAbsent(cwd, 0)
     // Somar o tamanho passado tanto pros que já existiam quando os que foram inicializados agora

@@ -1,4 +1,4 @@
-fun String.indexOfMarker(size: Int) =
+private fun String.indexOfMarker(size: Int) =
     this.windowed(size).indexOfFirst { seq -> seq.toSet().size == size }
 
 fun main() {

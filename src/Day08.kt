@@ -1,24 +1,24 @@
-typealias Forest = List<List<Int>>
+private typealias Forest = List<List<Int>>
 
-fun List<String>.toForest() = this.map { row -> row.map { it.digitToInt() } }
+private fun List<String>.toForest() = this.map { row -> row.map { it.digitToInt() } }
 
-fun isVisible(forest: Forest, row: Int, col: Int): Boolean {
+private fun isVisible(forest: Forest, row: Int, col: Int): Boolean {
     // Árvores nas bordas são visíveis
     if (row == 0 || row == forest.size - 1 || col == 0 || col == forest[row].size - 1) return true
 
     val tree = forest[row][col]
 
-    var visibleFromLeft   = true
-    var visibleFromRight  = true
-    var visibleFromTop    = true
+    var visibleFromLeft = true
+    var visibleFromRight = true
+    var visibleFromTop = true
     var visibleFromBottom = true
 
     // Primeiro verificar se tem alguma árvore maior na linha
     var i = 0
     while(i < forest[row].size) {
         when {
-            visibleFromLeft  && i < col -> if (forest[row][i] >= tree)  visibleFromLeft = false
-            visibleFromRight && i > col -> if (forest[row][i] >= tree)  visibleFromRight = false
+            visibleFromLeft && i < col -> if (forest[row][i] >= tree) visibleFromLeft = false
+            visibleFromRight && i > col -> if (forest[row][i] >= tree) visibleFromRight = false
         }
         i++
     }
@@ -36,16 +36,15 @@ fun isVisible(forest: Forest, row: Int, col: Int): Boolean {
     return (visibleFromTop || visibleFromRight || visibleFromBottom || visibleFromLeft)
 }
 
-fun scenicScore(forest: Forest, row: Int, col: Int): Int {
+private fun scenicScore(forest: Forest, row: Int, col: Int): Int {
     if (row == 0 || row == forest.size - 1 || col == 0 || col == forest[row].size - 1) return 0
 
     val tree = forest[row][col]
 
-
-    var viewingDistanceUp    = 0
+    var viewingDistanceUp = 0
     var viewingDistanceDown = 0
-    var viewingDistanceLeft   = 0
-    var viewingDistanceRight  = 0
+    var viewingDistanceLeft = 0
+    var viewingDistanceRight = 0
 
     for (i in row - 1 downTo 0) {
         viewingDistanceUp++
@@ -67,7 +66,6 @@ fun scenicScore(forest: Forest, row: Int, col: Int): Int {
         if (forest[row][i] >= tree) break
     }
 
-//    println("($row, $col) = $viewingDistanceUp * $viewingDistanceLeft * $viewingDistanceDown * $viewingDistanceRight")
     return viewingDistanceUp * viewingDistanceLeft * viewingDistanceDown * viewingDistanceRight
 
 }

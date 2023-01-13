@@ -1,31 +1,31 @@
-fun String.getValues() = this
+private fun String.getValues() = this
     .split(" ")
     .filter { parts -> parts.all { it.isDigit() } }
     .map { it.toInt() }
 
-fun Array<ArrayDeque<Char>>.move(from: Int, to: Int) {
+private fun Array<ArrayDeque<Char>>.move(from: Int, to: Int) {
     this[to].add(this[from].removeLastOrNull() ?: ' ')
 }
 
-fun Array<ArrayDeque<Char>>.move(n: Int, from: Int, to: Int) {
+private fun Array<ArrayDeque<Char>>.move(n: Int, from: Int, to: Int) {
     this[from].takeLast(n).forEach { this[to].add(it) }.also {
         repeat (n) { this[from].removeLast() }
     }
 }
 
-data class StacksState(
+private data class StacksState(
     val stacks: Array<ArrayDeque<Char>>,
     val moves: List<String>
 )
 
-fun parseInput(input: List<String>): StacksState {
+private fun parseInput(input: List<String>): StacksState {
     val stacks = initializeStacks(input.takeWhile { it.isNotEmpty() })
     val moves  = input.filter { it.startsWith("move") }
 
     return StacksState(stacks, moves)
 }
 
-fun initializeStacks(input: List<String>): Array<ArrayDeque<Char>> {
+private fun initializeStacks(input: List<String>): Array<ArrayDeque<Char>> {
     val brackets = Regex("[\\[\\]]")
 
     val numberOfStacks = input.last().takeLast(4).trim().toInt()

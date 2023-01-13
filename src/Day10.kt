@@ -1,5 +1,5 @@
 
-data class CycleState(val tick: Int, val register: Int ) {
+private data class CycleState(val tick: Int, val register: Int ) {
     val signalStrength = tick * register
     val pixelIsVisible = (tick - 1) % 40 in register - 1 .. register + 1
 }

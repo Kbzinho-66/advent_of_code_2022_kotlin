@@ -11,16 +11,20 @@ fun main() {
     }
 
     fun part1(input: List<String>): Int {
+        // Decompor a string nos seus dois compartimentos
         return input.map { (comp1, comp2) ->
+            // Encontrar itens comuns aos dois
             comp1 intersect comp2
-        }.flatten().sumOf { priority(it) }
+        }.flatten().sumOf { priority(it) } // E somar a prioridade de todos
     }
 
     fun part2(input: List<String>): Int {
+        // Pegar grupos de 3 mochilas
         return input.chunked(3)
             .map { group ->
                 // O zipWithNext vai comparar o primeiro com o segundo e o segundo com o terceiro
                 group.zipWithNext()
+                    // Separar nos dois compartimentos
                     .map { (first, second) ->
                         // Daqui vão sair os elementos comuns aos dois
                         first.toSet() intersect second.toSet()
